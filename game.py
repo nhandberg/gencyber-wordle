@@ -1,11 +1,17 @@
-from random import choice
+# from random import choice
+import requests
+import json
 
+#Get list of valid words
 words = []
-
 with open("words.txt", "r") as f:
     words = [x.strip() for x in f.readlines()]
 
-word = choice(words)
+# API call
+# date = "2025-06-10"
+date = input("Enter date (YYYY-MM-DD): ")
+res = requests.get(f"https://www.nytimes.com/svc/wordle/v2/{date}.json").json()
+word = res['solution']
 
 done = False
 while not done:
